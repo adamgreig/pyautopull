@@ -17,7 +17,7 @@ def autodeploy():
                 with open("./last_commit", "w") as f:
                     f.write(after)
     except Exception as e:
-        print "exception: " + str(e)
+        pass
     finally:
         return "thanks github, <3!\n"
 
