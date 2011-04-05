@@ -12,12 +12,12 @@ def autodeploy():
             before = f.read()
         after = json.loads(request.form["payload"])["after"]
         if before != after:
-            rtn = subprocess.call(app.config["CMD"])
-            if rtn == 0:
-                with open("./last_commit", "w") as f:
-                    f.write(after)
+            subprocess.call(["/bin/bash", "-c", app.config["CMD"]])
+            with open("./last_commit", "w") as f:
+                f.write(after)
     except Exception as e:
-        pass
+        with open("/tmp/pyautopull_err", "w") as f:
+            f.write("exception: " + repr(e) + "\n")
     finally:
         return "thanks github, <3!\n"
 
